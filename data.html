@@ -1,0 +1,168 @@
+<!doctype html>
+<html>
+<head> 
+<title>Je compare les communes</title> 
+<script src="./vendors/jquery-3.3.1.min.js"></script>
+<meta charset="UTF-8">
+<link type="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,600,600i,700">
+    <!-- <link rel="stylesheet" href="styles/webslides.css"> -->
+    <link rel="stylesheet" href="styles/animation.css">
+    <link rel="stylesheet" href="styles/font.css">
+    <link rel="stylesheet" href="styles/main.css">
+    <link href="https://fonts.googleapis.com/css?family=Amatic+SC:700|Jomolhari|Raleway:300|Source+Sans+Pro&display=swap" rel="stylesheet">
+
+
+<style>
+	tr:nth-child(even) {background-color: #f2f2f2;}
+</style>
+</head>
+
+
+<body>  
+<div><a href="./index.html">retour</a></div>
+<h1 class=" title center" style="text-align: center;font-size: 90px;">Je compare les communes !</h1>
+
+<hr>
+
+
+
+<!-- popAlannee
+nombre d'habitantResSec
+Part des 65 ans et plus 2016
+Recettes fiscales / habitant
+DGFHab -->
+<table id="table">
+	<!-- <thead>
+		<tr>
+			<th>Population habitant à l'année</th>
+        </tr>
+        <tr>
+            <th>Nombre d'habitant en résidence secondaire</th>
+        </tr>
+        <tr>
+            <th>Part des 65 ans et plus</th>
+        </tr>
+        <tr>
+            <th>Recettes fiscales / habitant</th>
+        </tr>
+        <tr>
+            <th>DGF / habitant</th>
+        </tr>
+	</thead> -->
+	<tbody id="tbody">
+		<table class="tg">
+            <tr>
+              <th class="tg-0lax"></th>
+              <th class="tg-0lax"><div id='myDiv'>
+                <select id="select"></select>
+            </div></th>
+              <th class="tg-0lax"><div id='myDiv2'>
+                <select id="select2"></select>
+            </div></th>
+            </tr>
+            <tr>
+              <td class="tg-0pky" style="text-align: center;"><b>Répartition des habitants à l'année et en résidence secondaire</b><br>(survolez pour voir les valeurs absolues)</td>
+              <td id="11" class="tg-0pky">
+                  <div class="graph4">
+                <canvas id="doughChart"></canvas>
+            </div></td>
+              <td id="12" class="tg-0pky">
+                    <div class="graph4">
+                        <canvas id="doughChart2"></canvas>
+                    </div>
+              </td>
+            </tr>
+            <tr>
+              <th class="tg-0pky"></th>
+              <td id="21" class="tg-0pky"></td>
+              <!-- <td id="22" class="tg-0pky"></td> -->
+            </tr>
+            <tr>
+              <th class="tg-0pky">Part des 15-29 ans indicé</b> (le 0 correspond à la médiane des communes bretonnes) <b></b> par rapport à la médiane des communes bretonnes</th>
+              <td id="31" class="tg-0pky" style="text-align: center;"></td>
+              <td id="32" class="tg-0pky" style="text-align: center;"></td>
+            </tr>
+            <tr>
+              <td class="tg-0pky" style="text-align: center;"><b>Recettes fiscales/habitant, indicé par rapport à la médiane des communes bretonnes</b>
+                <span class="bulle1" style="z-index: 3;
+                position: absolute;
+                top: 35%;
+                left: 10%;
+                background-color: #7c2722;
+                width: 30%;
+                height: 15%;
+                color: white;
+                border-radius: 1vw;
+                vertical-align: middle;
+                padding-top: 20px;
+                padding-bottom: 25px;
+                display: none;">
+                  
+                  <p class="txt3x6"></br></br><cite>le 0 correspond à la médiane des communes bretonnes</cite></p>
+              </span></td>
+              <td  id="41" class="tg-0pky" style="text-align: center;">
+                    <!-- <div class="graph4">
+                            <canvas id="barFisc"></canvas>
+                        </div> -->
+              </td>
+              <td id="42" class="tg-0pky" style="text-align: center;"></td>
+            </tr>
+            <tr>
+              <th class="tg-0pky">Dotation globale de financement/habitant, indicé par rapport à la médiane des communes bretonnes
+                <span class="bulle2" style="z-index: 3;
+                position: absolute;
+                top: 35%;
+                left: 10%;
+                background-color: #7c2722;
+                width: 30%;
+                height: 15%;
+                color: white;
+                border-radius: 1vw;
+                vertical-align: middle;
+                padding-top: 20px;
+                padding-bottom: 25px;
+                display: none;">
+                  
+                  <p class="txt3x6"></br></br><cite>le 0 correspond à la médiane des communes bretonnes. </cite></p>
+              </span></th>
+              <td id="51" class="tg-0pky" style="text-align: center;"></td>
+              <td id="52" class="tg-0pky" style="text-align: center;"></td>
+            </tr>
+            <tr>
+                    <th class="tg-0pky">Effort fiscal (<a  onclick="definitionQuiz(3)" style="cursor: help;background-color: rgba(227, 6, 19,0.5);"> indicé</a>) par rapport à la médiane des communes bretonnes 
+
+                      <span class="bulle3" style="z-index: 3;
+                      position: absolute;
+                      top: 55%;
+                      left: 10%;
+                      background-color: #7c2722;
+                      width: 30%;
+                      height: 15%;
+                      color: white;
+                      border-radius: 1vw;
+                      vertical-align: middle;
+                      padding-top: 10px;
+                      padding-bottom: 25px;
+                      display: none;
+                      ">
+                        
+                        <p class="txt3x6"></br></br><cite>le 0 correspond à la médiane des communes bretonnes.<br> UN nombre négatif signifie un éffort fiscal moins important que la médiane</cite></p>
+                    </span>
+                    </th>
+                    <td  colspan="2" id="41" class="tg-0pky">
+                          <div class="graph4">
+                                  <canvas id="barFisc"></canvas>
+                              </div>
+                    </td>
+                    <!-- <td id="42" class="tg-0pky"></td> -->
+                  </tr>
+          </table>
+	</tbody>
+</table>
+</body>
+<script type="text/javascript" src="./vendors/Chart.min.js"></script>
+<script type="text/javascript" src="./vendors/underscore-min.js"></script>
+<script type="text/javascript" src="./scripts/data.js"></script>
+
+</html>
